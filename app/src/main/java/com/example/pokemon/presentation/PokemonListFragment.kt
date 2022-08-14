@@ -6,14 +6,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import com.example.pokemon.databinding.PokemonListFragmentBinding
 import com.example.pokemon.presentation.adapter.PokemonListAdapter
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.runBlocking
 
 class PokemonListFragment : Fragment() {
 
     private lateinit var binding: PokemonListFragmentBinding
+    private lateinit var viewModel: PokemonListViewModel
     private lateinit var adapter: PokemonListAdapter
-    private val viewModel by viewModels<PokemonListViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,13 +29,37 @@ class PokemonListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initAdapter()
+        viewModel = ViewModelProvider(this).get(PokemonListViewModel::class.java)
+        binding.run {
 
-        viewModel.refreshData()
+            swiperefreshlayout.setOnRefreshListener {
+                recyclerView.visibility = View.GONE
+                errorTxt.visibility = View.GONE
+                progressBar.visibility = View.VISIBLE
+                viewModel.refreshData()
+                swiperefreshlayout.isRefreshing = false
+                runBlocking {
+                    delay(2000L)
+                }
+                progressBar.visibility = View.INVISIBLE
+                recyclerView.visibility = View.VISIBLE
 
-        viewModel.pokemonList.observe(viewLifecycleOwner) {
-            adapter = PokemonListAdapter(it)
-            binding.recyclerView.adapter = adapter
+
+            }
+
+
         }
+
+
+
+
+        viewModel.pokemon.observe(viewLifecycleOwner) {
+
+        adapter.pokemonList = listOf(it)
+
+        }
+        viewModel.refreshData()
 
         //Checking error message
         viewModel.error.observe(viewLifecycleOwner) { error ->
@@ -59,6 +86,13 @@ class PokemonListFragment : Fragment() {
             }
         }
 
+
+    }
+
+    private fun initAdapter() {
+        val recyclerView= binding.recyclerView
+        adapter = PokemonListAdapter()
+        recyclerView.adapter = adapter
 
     }
 }

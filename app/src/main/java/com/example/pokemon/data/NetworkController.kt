@@ -2,11 +2,13 @@ package com.example.pokemon.data
 
 import android.util.Log
 import com.example.pokemon.domain.Pokemon
+import com.example.pokemon.domain.Result
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import io.reactivex.Single
 import okhttp3.OkHttpClient
 import okhttp3.Protocol
 import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
@@ -33,11 +35,11 @@ class NetworkController {
         .baseUrl(BASE_URL)
         .client(getOkHttpClient())
         .addConverterFactory(GsonConverterFactory.create())
-        .addCallAdapterFactory(RxJava2CallAdapterFactory.create()).build()
+         .build()
         .create(PokemonApi::class.java)
 
 
-    fun getData(): Single<ArrayList<Pokemon>> = retrofit.getPokemon()
+    suspend fun getData(): Response<Pokemon> = retrofit.getPokemon()
 
 
     companion object {

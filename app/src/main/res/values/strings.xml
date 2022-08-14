@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">Pokemon</string>
     <string name="error">ERROR</string>
+    <string name="pokemon_name">Pokemon Name</string>
+    <string name="pokemon_type">Pokemon Type</string>
+    <string name="pokemon_weight">Pokemon weight</string>
+    <string name="pokemon_height">Pokmon Height</string>
 </resources>
