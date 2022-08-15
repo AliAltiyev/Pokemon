@@ -44,6 +44,7 @@ dependencies {
     def hilt_version = '2.40'
     def nav_version = "2.5.1"
     def rxJavaVersion = "2.2.9"
+    def roomVersion = "2.4.2"
 
 
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
@@ -91,4 +92,14 @@ dependencies {
     //Glide
     implementation 'com.github.bumptech.glide:glide:4.13.2'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.13.2'
+
+    //Picasso
+    implementation 'com.squareup.picasso:picasso:2.71828'
+
+    //Room
+    implementation("androidx.room:room-runtime:$roomVersion")
+    annotationProcessor("androidx.room:room-compiler:$roomVersion")
+    implementation("androidx.room:room-ktx:$roomVersion")
+    kapt("androidx.room:room-compiler:$roomVersion")
+
 }

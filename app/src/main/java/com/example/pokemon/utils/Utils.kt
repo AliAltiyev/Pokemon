@@ -1,4 +1,4 @@
-package com.example.pokemon.utils
+package com.example.disnayland.presentation.adapter
 
 import android.content.Context
 import android.widget.ImageView
@@ -7,7 +7,13 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.pokemon.R
 
-fun ImageView.download(url: String?, circularProgressDrawable: CircularProgressDrawable) {
+
+
+
+fun ImageView.setImageFromUrl(
+    url: String?,
+    circularProgressDrawable: CircularProgressDrawable,
+) {
 
     val options = RequestOptions()
         .placeholder(circularProgressDrawable)
@@ -19,6 +25,8 @@ fun ImageView.download(url: String?, circularProgressDrawable: CircularProgressD
         .setDefaultRequestOptions(options)
         .load(url)
         .into(this)
+
+
 
 
     fun progressDrawable(context: Context): CircularProgressDrawable {
