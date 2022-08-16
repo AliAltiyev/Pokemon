@@ -6,16 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
 import com.example.pokemon.databinding.PokemonListFragmentBinding
 import com.example.pokemon.presentation.adapter.PokemonListAdapter
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.runBlocking
 
 class PokemonListFragment : Fragment() {
 
     private lateinit var binding: PokemonListFragmentBinding
     private lateinit var viewModel: PokemonListViewModel
-    private lateinit var adapter: PokemonListAdapter
+    private lateinit var pokemonAdapter: PokemonListAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,8 +28,8 @@ class PokemonListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initAdapter()
-        viewModel = ViewModelProvider(this).get(PokemonListViewModel::class.java)
+        setupRecyclerView()
+        viewModel = ViewModelProvider(this)[PokemonListViewModel::class.java]
         binding.run {
 
             swiperefreshlayout.setOnRefreshListener {
@@ -38,23 +38,13 @@ class PokemonListFragment : Fragment() {
                     progressBar.visibility = View.VISIBLE
                     viewModel.refreshData()
                     swiperefreshlayout.isRefreshing = false
-
                 }
-
-
             }
-
-
         }
         viewModel.refreshData()
 
-
-
-
-        viewModel.resultList.observe(viewLifecycleOwner) {
-
-            adapter.resultList = it
-
+        viewModel.resultList.observe(viewLifecycleOwner) { listResult ->
+            pokemonAdapter.submitList(listResult)
         }
 
 
@@ -85,11 +75,36 @@ class PokemonListFragment : Fragment() {
 
 
     }
+    private fun setupRecyclerView() {
+        with(binding.recyclerView) {
+            pokemonAdapter = PokemonListAdapter()
+            adapter = pokemonAdapter
 
-    private fun initAdapter() {
-        val recyclerView= binding.recyclerView
-        adapter = PokemonListAdapter()
-        recyclerView.adapter = adapter
+        }
+        setupSwipeListener(binding.recyclerView)
+    }
 
+
+    private fun setupSwipeListener(recyclerView: RecyclerView) {
+        val callback = object : ItemTouchHelper.SimpleCallback(
+            0,
+            ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
+        ) {
+
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                return false
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val item = pokemonAdapter.currentList[viewHolder.adapterPosition]
+                viewModel.deletePokemonFromRoom(item)
+            }
+        }
+        val itemTouchHelper = ItemTouchHelper(callback)
+        itemTouchHelper.attachToRecyclerView(recyclerView)
     }
 }

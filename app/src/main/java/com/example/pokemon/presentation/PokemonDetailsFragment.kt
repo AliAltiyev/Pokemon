@@ -6,13 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable
+import com.example.disnayland.presentation.adapter.setImageFromUrl
 import com.example.pokemon.databinding.PokemonDetailsFragmentBinding
-import com.example.pokemon.presentation.adapter.PokemonListAdapter
-import dagger.hilt.android.AndroidEntryPoint
 
 
 class PokemonDetailsFragment : Fragment() {
-
+    private var uuid = 0
     private lateinit var binding: PokemonDetailsFragmentBinding
 
     private lateinit var viewModel: PokemonDetailsViewModel
@@ -27,11 +27,30 @@ class PokemonDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-   viewModel = ViewModelProvider(this).get(PokemonDetailsViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(PokemonDetailsViewModel::class.java)
+        arguments.let {
+            uuid = PokemonDetailsFragmentArgs.fromBundle(it!!).pokemonId
+        }
 
+        viewModel.getPokemonInfo(uuid)
+        observeLiveData()
+    }
 
-//        viewModel.getPokemonInfo()
-
+    private fun observeLiveData() {
+        viewModel.pokemonInfo.observe(viewLifecycleOwner) { pokemonModel ->
+            if (pokemonModel != null) {
+                binding.run {
+                    pokemonNameTxt.text = pokemonModel.name
+                    pokemonHeightTxt.text = pokemonModel.height.toString()
+                    pokemonWeightTxt.text = pokemonModel.weight.toString()
+                    pokemonTypeTxt.text = pokemonModel.id.toString()
+                    itemImageView.setImageFromUrl(
+                        pokemonModel.sprites.frontDefault,
+                        circularProgressDrawable = CircularProgressDrawable(requireContext())
+                    )
+                }
+            }
+        }
     }
 
 

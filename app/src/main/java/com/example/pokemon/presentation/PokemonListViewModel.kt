@@ -96,6 +96,13 @@ class PokemonListViewModel(application: Application) : BaseViewModel(application
         }
     }
 
+
+    fun deletePokemonFromRoom(result: Result) {
+        launch {
+            dao.deletePokemonResult(result)
+        }
+    }
+
     companion object {
 
 
