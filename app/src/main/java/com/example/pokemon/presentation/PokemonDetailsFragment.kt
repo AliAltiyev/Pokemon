@@ -5,30 +5,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.example.disnayland.presentation.adapter.setImageFromUrl
+import com.example.pokemon.R
 import com.example.pokemon.databinding.PokemonDetailsFragmentBinding
+import com.example.pokemon.utils.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class PokemonDetailsFragment : Fragment() {
+class PokemonDetailsFragment : Fragment(R.layout.pokemon_details_fragment) {
     private var uuid = 0
-    private lateinit var binding: PokemonDetailsFragmentBinding
+    private val binding by viewBinding(PokemonDetailsFragmentBinding::bind)
 
-    private lateinit var viewModel: PokemonDetailsViewModel
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    private val viewModel: PokemonDetailsViewModel by viewModels()
 
-        binding = PokemonDetailsFragmentBinding.inflate(inflater, container, false)
-        return binding.root
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this).get(PokemonDetailsViewModel::class.java)
         arguments.let {
             uuid = PokemonDetailsFragmentArgs.fromBundle(it!!).pokemonId
         }

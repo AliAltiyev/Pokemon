@@ -4,7 +4,7 @@ import android.app.Application
 import android.view.LayoutInflater
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.pokemon.data.MainRemoteData
+import com.example.pokemon.data.networking.MainRemoteData
 import com.example.pokemon.databinding.PokemonDetailsFragmentBinding
 import com.example.pokemon.domain.PokemonInfoModel
 import dagger.hilt.android.lifecycle.HiltViewModel

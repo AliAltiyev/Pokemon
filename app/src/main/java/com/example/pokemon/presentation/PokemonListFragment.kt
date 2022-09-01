@@ -5,33 +5,27 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
+import com.example.pokemon.R
 import com.example.pokemon.databinding.PokemonListFragmentBinding
 import com.example.pokemon.presentation.adapter.PokemonListAdapter
+import com.example.pokemon.utils.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class PokemonListFragment : Fragment() {
+class PokemonListFragment : Fragment(R.layout.pokemon_list_fragment) {
 
-    private lateinit var binding: PokemonListFragmentBinding
-    private lateinit var viewModel: PokemonListViewModel
+    private val binding by viewBinding(PokemonListFragmentBinding::bind)
+    private val viewModel: PokemonListViewModel by viewModels()
     private lateinit var pokemonAdapter: PokemonListAdapter
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = PokemonListFragmentBinding.inflate(inflater, container, false)
-        return binding.root
-    }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
-        viewModel = ViewModelProvider(this)[PokemonListViewModel::class.java]
         binding.run {
 
             swiperefreshlayout.setOnRefreshListener {
