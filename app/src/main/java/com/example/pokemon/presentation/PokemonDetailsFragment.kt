@@ -9,8 +9,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.example.disnayland.presentation.adapter.setImageFromUrl
 import com.example.pokemon.databinding.PokemonDetailsFragmentBinding
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class PokemonDetailsFragment : Fragment() {
     private var uuid = 0
     private lateinit var binding: PokemonDetailsFragmentBinding

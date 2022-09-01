@@ -10,7 +10,9 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pokemon.databinding.PokemonListFragmentBinding
 import com.example.pokemon.presentation.adapter.PokemonListAdapter
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class PokemonListFragment : Fragment() {
 
     private lateinit var binding: PokemonListFragmentBinding

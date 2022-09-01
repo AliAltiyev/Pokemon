@@ -4,20 +4,25 @@ import android.app.Application
 import android.view.LayoutInflater
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.pokemon.data.networking.NetworkController
+import com.example.pokemon.data.MainRemoteData
 import com.example.pokemon.databinding.PokemonDetailsFragmentBinding
 import com.example.pokemon.domain.PokemonInfoModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class PokemonDetailsViewModel(application: Application) : BaseViewModel(application) {
+@HiltViewModel
+class PokemonDetailsViewModel @Inject constructor(
+    application: Application,
+    private val mainRemoteData: MainRemoteData
+) : BaseViewModel(application) {
 
     val pokemonInfo = MutableLiveData<PokemonInfoModel>()
-    private val apiService = NetworkController()
 
     fun getPokemonInfo(id: Int) {
         viewModelScope.launch(Dispatchers.IO) {
-            val response = apiService.getPokemon(id)
+            val response = mainRemoteData.getPokemon(id)
             if (response.isSuccessful) {
                 response.body()?.let {
                     pokemonInfo.postValue(it)
@@ -32,14 +37,14 @@ class PokemonDetailsViewModel(application: Application) : BaseViewModel(applicat
                 view.itemImageView.visibility = android.view.View.GONE
                 view.pokemonTypeTxt.visibility = android.view.View.GONE
                 view.pokemonWeightTxt.visibility = android.view.View.GONE
-                view.pokemonNameTxt.text = ERRO_MESSAGE
+                view.pokemonNameTxt.text = ERROR_MESSAGE
             }
 
         }
     }
 
     companion object {
-        const val ERRO_MESSAGE = "Error! Make sure you are connected to the internet"
+        const val ERROR_MESSAGE = "Error! Make sure you are connected to the internet"
     }
 
 
