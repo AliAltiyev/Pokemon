@@ -1,12 +1,9 @@
 package com.example.pokemon.data.networking
 
 import android.util.Log
-import com.example.pokemon.domain.PokemonInfoModel
-import com.example.pokemon.domain.PokemonList
 import okhttp3.OkHttpClient
 import okhttp3.Protocol
 import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.Response
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 

@@ -1,47 +1,40 @@
 package com.example.pokemon.presentation.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.navigation.Navigation
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.pokemon.base.BaseAdapter
 import com.example.pokemon.databinding.PokemonItemForRecyclerBinding
-import com.example.pokemon.domain.Result
-import com.example.pokemon.presentation.PokemonListFragmentDirections
+import com.example.pokemon.domain.PokeResult
 
-class PokemonListAdapter() :
-    ListAdapter<Result, PokemonItemViewHolder>(PokemonDiffCallBack()) {
+class PokemonListAdapter(private val ItemClick: (Int) -> Unit) :
+    BaseAdapter<PokeResult>(
+        { oldItem, newItem -> oldItem.name == newItem.name },
+        { oldItem, newItem -> oldItem == newItem }
+    ) {
 
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PokemonItemViewHolder {
-
-            val view = PokemonItemForRecyclerBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
-            )
-            return PokemonItemViewHolder(view)
-
-        }
-
-        override fun onBindViewHolder(holder: PokemonItemViewHolder, position: Int) {
-            val item = getItem(position)
-
-            holder.binding.textView.text = item.name
-            holder.itemView.setOnClickListener { view ->
-                val selectedItem = item.uuid
-                val action =
-                    PokemonListFragmentDirections.actionPokemonListFragmentToPokemonDetailsFragment(
-                        selectedItem
-                    )
-
-                Navigation.findNavController(view)
-                    .navigate(action)
-            }
-
-
-        }
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        inflater: LayoutInflater,
+        viewType: Int
+    ): RecyclerView.ViewHolder {
+        val view = PokemonItemForRecyclerBinding.inflate(inflater, parent, false)
+        return PokemonItemViewHolder(view)
 
     }
 
+    @SuppressLint("SetTextI18n")
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        when (holder) {
+            is PokemonItemViewHolder -> {
+                val item = getItem(position)
+                holder.binding.heroName.text = item.name
+                holder.itemView.setOnClickListener {
+                    ItemClick(position + 1)
+                }
+            }
 
-
+        }
+    }
+}

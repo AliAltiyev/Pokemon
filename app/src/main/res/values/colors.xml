@@ -11,5 +11,6 @@
     <color name="card_view_back_color">#2F3148</color>
     <color name="recycler_view_back_start_color">#4C8891</color>
     <color name="recycler_view_back_end_color">#A0C8C3</color>
+    <color name="details_fragment_background_photo">#023047</color>
 
 </resources>

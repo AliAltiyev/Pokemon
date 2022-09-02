@@ -4,9 +4,10 @@ import android.app.Application
 import android.view.LayoutInflater
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.example.pokemon.base.BaseViewModel
 import com.example.pokemon.data.networking.MainRemoteData
 import com.example.pokemon.databinding.PokemonDetailsFragmentBinding
-import com.example.pokemon.domain.PokemonInfoModel
+import com.example.pokemon.domain.Pokemon
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -18,7 +19,7 @@ class PokemonDetailsViewModel @Inject constructor(
     private val mainRemoteData: MainRemoteData
 ) : BaseViewModel(application) {
 
-    val pokemonInfo = MutableLiveData<PokemonInfoModel>()
+    val pokemonInfo = MutableLiveData<Pokemon>()
 
     fun getPokemonInfo(id: Int) {
         viewModelScope.launch(Dispatchers.IO) {

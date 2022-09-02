@@ -28,7 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:text="@string/pokemon_name"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="40sp" />
     <TextView
         android:id="@+id/pokemon_type_txt"
@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:text="@string/pokemon_type"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="36sp" />
     <TextView
         android:id="@+id/pokemon_weight_txt"
@@ -46,7 +46,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:text="@string/pokemon_weight"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="32sp" />
 
     <TextView
@@ -56,7 +56,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:text="@string/pokemon_height"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="32sp" />
 
 

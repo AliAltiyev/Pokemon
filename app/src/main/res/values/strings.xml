@@ -5,4 +5,8 @@
     <string name="pokemon_type">Pokemon Type</string>
     <string name="pokemon_weight">Pokemon weight</string>
     <string name="pokemon_height">Pokmon Height</string>
+    <string name="weight">Weight: %1$s</string>
+    <string name="height">Height: %1$s</string>
+    <string name="type">Type: %1$s</string>
+
 </resources>

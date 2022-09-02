@@ -3,48 +3,52 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
-    id "androidx.navigation.safeargs.kotlin"
+    id 'androidx.navigation.safeargs.kotlin'
+    id 'org.jetbrains.kotlin.android.extensions'
+
 }
+    android {
+        compileSdk 32
 
-android {
-    compileSdk 32
+        defaultConfig {
+            applicationId "com.example.pokemon"
+            minSdk 26
+            targetSdk 32
+            versionCode 1
+            versionName "1.0"
 
-    defaultConfig {
-        applicationId "com.example.pokemon"
-        minSdk 26
-        targetSdk 32
-        versionCode 1
-        versionName "1.0"
+            testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        }
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-    }
+        buildTypes {
+            release {
+                minifyEnabled false
+                proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            }
+        }
+        compileOptions {
+            sourceCompatibility JavaVersion.VERSION_1_8
+            targetCompatibility JavaVersion.VERSION_1_8
+        }
+        kotlinOptions {
+            jvmTarget = '1.8'
+        }
 
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        buildFeatures {
+            viewBinding true
+        }
+
+        androidExtensions {
+            experimental = true
         }
     }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = '1.8'
-    }
-
-    buildFeatures {
-        viewBinding true
-    }
-}
 
 dependencies {
 
     implementation 'com.google.android.gms:play-services-fido:18.1.0'
     def hilt_version = '2.40'
     def nav_version = "2.5.1"
-    def rxJavaVersion = "2.2.9"
-    def roomVersion = "2.4.2"
+    def roomVersion = "2.4.3"
 
 
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
@@ -101,5 +105,9 @@ dependencies {
     annotationProcessor("androidx.room:room-compiler:$roomVersion")
     implementation("androidx.room:room-ktx:$roomVersion")
     kapt("androidx.room:room-compiler:$roomVersion")
+
+    //Custom State Layout
+    implementation 'com.github.yusufonderd:StateLayout:0.1.1'
+
 
 }

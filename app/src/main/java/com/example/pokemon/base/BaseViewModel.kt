@@ -1,4 +1,4 @@
-package com.example.pokemon.presentation
+package com.example.pokemon.base
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
