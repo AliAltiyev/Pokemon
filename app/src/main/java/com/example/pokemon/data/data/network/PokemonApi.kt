@@ -1,4 +1,4 @@
-package com.example.pokemon.data.networking
+package com.example.pokemon.data.data.network
 
 import com.example.pokemon.domain.Pokemon
 import com.example.pokemon.domain.PokemonApiResponse

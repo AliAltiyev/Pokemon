@@ -24,7 +24,7 @@ class PokemonListFragment : Fragment(R.layout.pokemon_list_fragment) {
         super.onViewCreated(view, savedInstanceState)
         initView()
         observe()
-        viewModel.getApi()
+        viewModel.getDataFromApi()
     }
 
 

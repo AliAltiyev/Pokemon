@@ -15,29 +15,13 @@
     android:orientation="vertical"
     tools:context=".presentation.PokemonListFragment">
 
-
-    <androidx.appcompat.widget.SearchView
-        android:id="@+id/search_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        android:background="@drawable/search_view_background"
-        android:elevation="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:id="@+id/recycler_view"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:layout_height="match_parent"
-        android:layout_marginTop="100dp"
+        android:layout_margin="8dp"
         android:background="@drawable/recycler_view_background"
-        app:layout_constraintTop_toBottomOf="@id/search_view"
-        app:layout_constraintVertical_weight="1"
         tools:layout_editor_absoluteX="0dp" />
 
 
