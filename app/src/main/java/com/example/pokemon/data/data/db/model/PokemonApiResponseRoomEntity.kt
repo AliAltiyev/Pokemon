@@ -19,9 +19,3 @@ data class PokemonApiResponseRoomEntity(
     @PrimaryKey(autoGenerate = true)
     var uuid: Long = 0
 }
-
-
-
-
-
-

@@ -14,7 +14,7 @@ import com.example.pokemon.utils.PokemonApiTypeConvertor
         PokemonApiResponseRoomEntity::class,
         PokeResultRoomEntity::class,
         SpritesRoomEntity::class],
-    version = 1,
+    version = 2,
 )
 @TypeConverters(PokemonApiTypeConvertor::class)
 abstract class AppDatabase : RoomDatabase() {

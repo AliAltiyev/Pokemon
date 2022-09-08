@@ -5,7 +5,6 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 data class Pokemon(
-
     val id: Long,
     val name: String,
     val weight: Int,

@@ -1,25 +1,24 @@
 package com.example.pokemon.data.data
 
-import com.example.pokemon.data.data.db.EntityMapper
 import com.example.pokemon.data.data.db.PokemonDao
 import com.example.pokemon.data.data.db.model.PokeResultRoomEntity
-import com.example.pokemon.data.data.db.model.PokemonApiResponseRoomEntity
 import com.example.pokemon.data.data.db.model.PokemonRoomEntity
 import com.example.pokemon.data.data.network.PokemonApi
 import com.example.pokemon.domain.Repository
-import com.example.pokemon.domain.model.PokeResult
 import com.example.pokemon.domain.model.Pokemon
 import com.example.pokemon.domain.model.PokemonApiResponse
 import io.reactivex.Single
 import javax.inject.Inject
 import javax.inject.Singleton
 
+private const val POKEMON_LIMIT_SIZE = 50
+private const val POKEMON_OFFSET_SIZE = 0
+
 @Singleton
 class RepositoryImpl
 @Inject constructor(
     private val dao: PokemonDao,
-    private val api: PokemonApi,
-    private val mapper: EntityMapper
+    private val api: PokemonApi
 ) : Repository {
 
 
@@ -43,7 +42,6 @@ class RepositoryImpl
         return dao.getPokemonByName(name)
     }
 
-
     //Network
     override fun getPokemon(id: Int): Single<Pokemon> {
         return api.getPokemonInfo(id)
@@ -52,12 +50,4 @@ class RepositoryImpl
     override fun getData(): Single<PokemonApiResponse> {
         return api.getPokemonList(POKEMON_LIMIT_SIZE, POKEMON_OFFSET_SIZE)
     }
-
-
-    companion object {
-        private const val POKEMON_LIMIT_SIZE = 50
-        private const val POKEMON_OFFSET_SIZE = 0
-
-    }
-
 }

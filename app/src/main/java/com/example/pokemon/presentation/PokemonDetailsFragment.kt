@@ -7,30 +7,29 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.example.pokemon.R
-import com.example.pokemon.databinding.PokemonDetailsFragmentBinding
+import com.example.pokemon.databinding.FragmentDetailsBinding
 import com.example.pokemon.utils.setImageFromUrl
 import com.example.pokemon.utils.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 
+private const val STROKE_WIDTH = 5f
+private const val CENTER_RADIUS = 30f
+
 @AndroidEntryPoint
-class PokemonDetailsFragment : Fragment(R.layout.pokemon_details_fragment) {
+class PokemonDetailsFragment : Fragment(R.layout.fragment_details) {
 
     private val args by navArgs<PokemonDetailsFragmentArgs>()
-    private val binding by viewBinding(PokemonDetailsFragmentBinding::bind)
-
+    private val binding by viewBinding(FragmentDetailsBinding::bind)
     private val viewModel: PokemonDetailsViewModel by viewModels()
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         observe()
         viewModel.saveDataToRoom(args.position)
-        viewModel.getPokemonFromRoom(args.position)
     }
 
     private fun observe() = with(binding) {
         viewModel.pokemonInfo.observe(viewLifecycleOwner) { pokemonModel ->
-            pokemonModel.let {
                 pokemonNameTxt.text = pokemonModel.name
                 pokemonHeightTxt.text = getString(R.string.weight, pokemonModel.weight.toString())
                 pokemonWeightTxt.text = getString(R.string.height, pokemonModel.height.toString())
@@ -38,14 +37,14 @@ class PokemonDetailsFragment : Fragment(R.layout.pokemon_details_fragment) {
                 itemImageView.setImageFromUrl(
                     pokemonModel.sprites.frontDefault,
                     circularProgressDrawable = CircularProgressDrawable(requireContext()).apply {
-                        strokeWidth = 5f
-                        centerRadius = 30f
+                        strokeWidth = STROKE_WIDTH
+                        centerRadius = CENTER_RADIUS
                         start()
                     })
             }
         }
     }
-        }
+
 
 
 

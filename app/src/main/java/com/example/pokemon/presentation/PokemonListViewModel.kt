@@ -4,9 +4,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.pokemon.data.data.RepositoryImpl
-import com.example.pokemon.data.data.db.EntityMapper
 import com.example.pokemon.domain.model.PokeResult
 import com.example.pokemon.domain.model.PokemonApiResponse
+import com.example.pokemon.utils.pokeResultFromDomainModelToRoomModel
+import com.example.pokemon.utils.pokeResultRoomEntityFromDomainModelToRoomModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -19,7 +20,6 @@ import javax.inject.Inject
 @HiltViewModel
 class PokemonListViewModel @Inject constructor(
     private val repositoryImpl: RepositoryImpl,
-    private val mapper: EntityMapper
 ) : ViewModel() {
 
     private val compositeDisposable = CompositeDisposable()
@@ -37,7 +37,7 @@ class PokemonListViewModel @Inject constructor(
                     override fun onSuccess(result: PokemonApiResponse) {
                         viewModelScope.launch(Dispatchers.IO) {
                             repositoryImpl.insertAllPokemon(
-                                mapper.pokeResultRoomEntityFromDomainModelToRoomModel(result.results)
+                                result.results.pokeResultRoomEntityFromDomainModelToRoomModel()
                             )
                         }
                     }
@@ -49,11 +49,10 @@ class PokemonListViewModel @Inject constructor(
         )
     }
 
-
     fun getDataFromRoom() {
         viewModelScope.launch(Dispatchers.IO) {
             val result = repositoryImpl.getPokemonList()
-            _pokeResult.postValue(mapper.pokeResultFromDomainModelToRoomModel(result))
+            _pokeResult.postValue(result.pokeResultFromDomainModelToRoomModel())
         }
     }
 

@@ -1,4 +1,4 @@
-package com.example.pokemon.data.data.db
+package com.example.pokemon.utils
 
 import com.example.pokemon.data.data.db.model.PokeResultRoomEntity
 import com.example.pokemon.data.data.db.model.PokemonRoomEntity
@@ -6,49 +6,37 @@ import com.example.pokemon.data.data.db.model.SpritesRoomEntity
 import com.example.pokemon.domain.model.PokeResult
 import com.example.pokemon.domain.model.Pokemon
 import com.example.pokemon.domain.model.Sprites
-import javax.inject.Inject
 
-class EntityMapper @Inject constructor() {
-
-
-    fun pokeResultFromDomainModelToRoomModel(entity: List<PokeResultRoomEntity>): List<PokeResult> {
-        return entity.map {
-            PokeResult(
-                name = it.name,
-                url = it.url
-            )
-        }
-    }
-
-    fun pokeResultRoomEntityFromDomainModelToRoomModel(entity: List<PokeResult>): List<PokeResultRoomEntity> {
-        return entity.map {
-            PokeResultRoomEntity(
-                name = it.name,
-                url = it.url
-            )
-        }
-    }
-
-
-    fun fromDomainModelToRoomModel(entity: Pokemon): PokemonRoomEntity {
-        return PokemonRoomEntity(
-            id = entity.id,
-            name = entity.name,
-            height = entity.height,
-            weight = entity.weight,
-            sprites = SpritesRoomEntity(entity.sprites.frontDefault, entity.sprites.frontShiny)
+fun List<PokeResultRoomEntity>.pokeResultFromDomainModelToRoomModel(): List<PokeResult> =
+    map {
+        PokeResult(
+            name = it.name,
+            url = it.url
         )
     }
 
-    fun fromRoomModelToDomainModel(entity: PokemonRoomEntity): Pokemon {
-        return Pokemon(
-            id = entity.id,
-            name = entity.name,
-            height = entity.height,
-            weight = entity.weight,
-            sprites = Sprites(entity.sprites.frontDefault, entity.sprites.frontShiny)
+fun List<PokeResult>.pokeResultRoomEntityFromDomainModelToRoomModel(): List<PokeResultRoomEntity> =
+    map {
+        PokeResultRoomEntity(
+            name = it.name,
+            url = it.url
         )
     }
 
+fun Pokemon.fromDomainModelToRoomModel(): PokemonRoomEntity =
+    PokemonRoomEntity(
+        id = id,
+        name = name,
+        height = height,
+        weight = weight,
+        sprites = SpritesRoomEntity(sprites.frontDefault, sprites.frontShiny)
+    )
 
-}
+fun PokemonRoomEntity.fromRoomModelToDomainModel(): Pokemon =
+    Pokemon(
+        id = id,
+        name = name,
+        height = height,
+        weight = weight,
+        sprites = Sprites(sprites.frontDefault, sprites.frontShiny)
+    )

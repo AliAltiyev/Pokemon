@@ -14,4 +14,3 @@ data class PokeResultRoomEntity(
     @PrimaryKey(autoGenerate = true)
     var id: Long = 0
 }
-
