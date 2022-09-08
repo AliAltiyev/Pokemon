@@ -23,8 +23,9 @@ class PokemonDetailsFragment : Fragment(R.layout.pokemon_details_fragment) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.getPokemonInfo(args.position)
         observe()
+        viewModel.saveDataToRoom(args.position)
+        viewModel.getPokemonFromRoom(args.position)
     }
 
     private fun observe() = with(binding) {

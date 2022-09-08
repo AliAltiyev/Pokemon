@@ -1,0 +1,16 @@
+package com.example.pokemon.utils
+
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
+
+fun <T> LiveData<T>.observeOnce(lifecycleOwner: LifecycleOwner, observer: Observer<T>) {
+    observe(lifecycleOwner, object : Observer<T> {
+        override fun onChanged(t: T) {
+            removeObserver(this)
+            observer.onChanged(t)
+        }
+    })
+}
+
+//I have a LiveData that I want to observe only once.

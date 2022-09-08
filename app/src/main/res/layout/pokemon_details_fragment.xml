@@ -22,7 +22,8 @@
         app:civ_border_color="@color/white"
         app:civ_border_width="1dp" />
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
+
         android:id="@+id/pokemon_name_txt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -30,7 +31,8 @@
         android:text="@string/pokemon_name"
         android:textColor="@color/white"
         android:textSize="40sp" />
-    <TextView
+
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/pokemon_type_txt"
         android:layout_marginTop="16dp"
         android:layout_width="wrap_content"
@@ -39,7 +41,8 @@
         android:text="@string/pokemon_type"
         android:textColor="@color/white"
         android:textSize="36sp" />
-    <TextView
+
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/pokemon_weight_txt"
         android:layout_marginTop="16dp"
         android:layout_width="wrap_content"
@@ -49,7 +52,7 @@
         android:textColor="@color/white"
         android:textSize="32sp" />
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/pokemon_height_txt"
         android:layout_marginTop="16dp"
         android:layout_width="wrap_content"

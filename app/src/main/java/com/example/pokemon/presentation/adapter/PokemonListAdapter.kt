@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pokemon.base.BaseAdapter
 import com.example.pokemon.databinding.PokemonItemForRecyclerBinding
-import com.example.pokemon.domain.PokeResult
+import com.example.pokemon.domain.model.PokeResult
 
 class PokemonListAdapter(private val ItemClick: (Int) -> Unit) :
     BaseAdapter<PokeResult>(
@@ -29,7 +29,7 @@ class PokemonListAdapter(private val ItemClick: (Int) -> Unit) :
         when (holder) {
             is PokemonItemViewHolder -> {
                 val item = getItem(position)
-                holder.binding.heroName.text = item.name
+                holder.binding.pokemonName.text = item.name
                 holder.itemView.setOnClickListener {
                     ItemClick(position + 1)
                 }

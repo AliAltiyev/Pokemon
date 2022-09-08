@@ -5,10 +5,12 @@
     <application
         android:name=".PokemonApp"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/application_logo"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+
+    android:roundIcon="@mipmap/application_logo"
         android:supportsRtl="true"
+
         android:theme="@style/Theme.Pokemon">
         <activity
             android:name=".presentation.MainActivity"

@@ -4,24 +4,25 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.example.pokemon.domain.PokeResult
-import com.example.pokemon.domain.PokemonApiResponse
-import kotlinx.coroutines.flow.Flow
+import com.example.pokemon.data.data.db.model.PokeResultRoomEntity
+import com.example.pokemon.data.data.db.model.PokemonRoomEntity
 
 @Dao
 interface PokemonDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAllPokemon(pokemon: List<PokeResult>)
+    suspend fun insertAllPokemon(list: List<PokeResultRoomEntity>)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAllPokemonApiResponse(pokemon: List<PokemonApiResponse>)
+    suspend fun insertPokemon(pokemon: PokemonRoomEntity)
 
 
-    @Query("SELECT * FROM PokeResult")
-    fun getPokemon(): Flow<List<PokeResult>>
+    @Query("SELECT * FROM pokeresultroomentity")
+    fun getPokemon(): List<PokeResultRoomEntity>
 
+    @Query("SELECT * FROM pokeresultroomentity WHERE name = :name")
+    fun getPokemonByName(name: String): PokeResultRoomEntity
 
-    @Query("SELECT * FROM  PokemonApiResponse ")
-    fun getPokemonApiResponse(): Flow<List<PokemonApiResponse>>
+    @Query("SELECT * FROM pokemonroomentity WHERE id = :id")
+    fun getPokemonById(id: Int): PokemonRoomEntity
 }
