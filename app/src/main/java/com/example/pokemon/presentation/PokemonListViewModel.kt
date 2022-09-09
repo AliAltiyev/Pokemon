@@ -26,6 +26,10 @@ class PokemonListViewModel @Inject constructor(
     private val _pokeResult = MutableLiveData<List<PokeResult>>()
     val pokeResult: MutableLiveData<List<PokeResult>> = _pokeResult
 
+    init {
+        getData()
+    }
+
 
     fun getData() {
         compositeDisposable.add(

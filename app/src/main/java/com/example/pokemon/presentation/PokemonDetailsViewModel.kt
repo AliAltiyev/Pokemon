@@ -23,6 +23,7 @@ class PokemonDetailsViewModel @Inject constructor(
     private val _pokemonInfo = MutableLiveData<Pokemon>()
     val pokemonInfo: MutableLiveData<Pokemon> = _pokemonInfo
 
+
     fun saveDataToRoom(id: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.getPokemon(id)
@@ -50,7 +51,5 @@ class PokemonDetailsViewModel @Inject constructor(
                 result.fromRoomModelToDomainModel()
             )
         }
-
     }
-
 }

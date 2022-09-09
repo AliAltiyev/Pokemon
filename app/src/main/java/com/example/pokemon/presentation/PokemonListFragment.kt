@@ -22,9 +22,7 @@ class PokemonListFragment : Fragment(R.layout.fragment_home) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
-        viewModel.getData()
         observe()
-
     }
     private fun observe() = with(binding) {
         viewModel.pokeResult.observe(viewLifecycleOwner) { result ->
