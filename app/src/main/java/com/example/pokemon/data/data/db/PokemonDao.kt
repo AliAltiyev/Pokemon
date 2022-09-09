@@ -20,8 +20,6 @@ interface PokemonDao {
     @Query("SELECT * FROM pokeresultroomentity")
     fun getPokemon(): List<PokeResultRoomEntity>
 
-    @Query("SELECT * FROM pokeresultroomentity WHERE name = :name")
-    fun getPokemonByName(name: String): PokeResultRoomEntity
 
     @Query("SELECT * FROM pokemonroomentity WHERE id = :id")
     fun getPokemonById(id: Int): PokemonRoomEntity

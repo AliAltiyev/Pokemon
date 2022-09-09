@@ -6,6 +6,8 @@ import com.example.pokemon.data.data.db.model.SpritesRoomEntity
 import com.example.pokemon.data.data.network.model.PokeResultNetworkEntity
 import com.example.pokemon.data.data.network.model.PokemonNetworkEntity
 import com.example.pokemon.domain.model.PokeResult
+import com.example.pokemon.domain.model.Pokemon
+import com.example.pokemon.domain.model.Sprites
 
 fun List<PokeResultRoomEntity>.pokeResultFromDomainModelToRoomModel(): List<PokeResult> =
     map {
@@ -33,3 +35,15 @@ fun List<PokeResultNetworkEntity>.fromNetworkModelToRoomModel(): List<PokeResult
         )
     }
 
+
+fun PokemonRoomEntity.fromRoomModelToDomainModel(): Pokemon =
+    Pokemon(
+    id = id,
+    name = name,
+    height = height,
+    weight = weight,
+    sprites = Sprites(
+        frontDefault = sprites.frontDefault.toString(),
+        frontShiny = sprites.frontShiny.toString()
+    )
+)

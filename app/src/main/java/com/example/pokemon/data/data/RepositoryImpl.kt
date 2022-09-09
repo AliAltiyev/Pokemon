@@ -38,9 +38,6 @@ class RepositoryImpl
         return dao.getPokemonById(id)
     }
 
-    override suspend fun searchPokemon(name: String): PokeResultRoomEntity {
-        return dao.getPokemonByName(name)
-    }
 
     //Network
     override fun getPokemon(id: Int): Single<PokemonNetworkEntity> {

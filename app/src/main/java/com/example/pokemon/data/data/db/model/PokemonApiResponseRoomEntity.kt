@@ -9,8 +9,6 @@ import com.example.pokemon.utils.PokemonApiTypeConvertor
 
 @Entity(tableName = "PokemonApiResponseRoomEntity")
 data class PokemonApiResponseRoomEntity(
-    @ColumnInfo(name = "count")
-    val count: Int,
     @ColumnInfo(name = "next")
     val next: String,
     @ColumnInfo(name = "previous")

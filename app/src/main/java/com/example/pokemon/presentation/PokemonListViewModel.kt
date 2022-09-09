@@ -27,7 +27,7 @@ class PokemonListViewModel @Inject constructor(
     val pokeResult: MutableLiveData<List<PokeResult>> = _pokeResult
 
 
-    fun getDataFromApi() {
+    fun getData() {
         compositeDisposable.add(
             repository.getData()
                 .subscribeOn(Schedulers.newThread())
@@ -38,7 +38,9 @@ class PokemonListViewModel @Inject constructor(
                         viewModelScope.launch(Dispatchers.IO) {
                             repository.insertAllPokemon(
                                 result.results.fromNetworkModelToRoomModel()
+
                             )
+                            getDataFromRoom()
                         }
                     }
 

@@ -17,7 +17,6 @@ interface Repository {
 
     suspend fun getPokemonById(id: Int): PokemonRoomEntity
 
-    suspend fun searchPokemon(name: String): PokeResultRoomEntity
 
 
     //Network
