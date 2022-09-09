@@ -26,6 +26,7 @@ class PokemonDetailsFragment : Fragment(R.layout.fragment_details) {
         super.onViewCreated(view, savedInstanceState)
         observe()
         viewModel.saveDataToRoom(args.position)
+
     }
 
     private fun observe() = with(binding) {

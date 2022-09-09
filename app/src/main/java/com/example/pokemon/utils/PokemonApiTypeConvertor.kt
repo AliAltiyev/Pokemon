@@ -9,7 +9,7 @@ import com.google.gson.reflect.TypeToken
 
  object PokemonApiTypeConvertor {
 
-    @TypeConverter
+@TypeConverter
     fun restoreList(listOfModels: String): List<PokeResultRoomEntity> {
         return Gson().fromJson(listOfModels, object : TypeToken<List<PokeResult>>() {}.type)
     }

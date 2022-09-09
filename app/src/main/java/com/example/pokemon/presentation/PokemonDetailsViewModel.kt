@@ -4,9 +4,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.pokemon.data.data.db.model.PokemonRoomEntity
+import com.example.pokemon.data.data.network.model.PokemonNetworkEntity
 import com.example.pokemon.domain.Repository
-import com.example.pokemon.domain.model.Pokemon
-import com.example.pokemon.utils.fromDomainModelToRoomModel
+import com.example.pokemon.utils.fromRoomModelToDomainModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.observers.DisposableSingleObserver
@@ -28,10 +28,10 @@ class PokemonDetailsViewModel @Inject constructor(
             repository.getPokemon(id)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(object : DisposableSingleObserver<Pokemon>() {
-                    override fun onSuccess(result: Pokemon) {
+                .subscribeWith(object : DisposableSingleObserver<PokemonNetworkEntity>() {
+                    override fun onSuccess(result: PokemonNetworkEntity) {
                         viewModelScope.launch(Dispatchers.IO) {
-                            repository.insertPokemon(result.fromDomainModelToRoomModel())
+                            repository.insertPokemon(result.fromRoomModelToDomainModel())
                             getPokemonFromRoom(id)
                         }
                     }
@@ -43,11 +43,10 @@ class PokemonDetailsViewModel @Inject constructor(
         }
     }
 
-    private fun getPokemonFromRoom(id: Int) {
+    fun getPokemonFromRoom(id: Int) {
         viewModelScope.launch(Dispatchers.IO) {
-            val result = repository.getPokemonById(id)
             pokemonInfo.postValue(
-                result
+                repository.getPokemonById(id)
             )
 
         }

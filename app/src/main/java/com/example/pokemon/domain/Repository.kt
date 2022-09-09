@@ -1,10 +1,9 @@
 package com.example.pokemon.domain
 
 import com.example.pokemon.data.data.db.model.PokeResultRoomEntity
-import com.example.pokemon.data.data.db.model.PokemonApiResponseRoomEntity
 import com.example.pokemon.data.data.db.model.PokemonRoomEntity
-import com.example.pokemon.domain.model.Pokemon
-import com.example.pokemon.domain.model.PokemonApiResponse
+import com.example.pokemon.data.data.network.model.PokemonApiResponseNetworkEntity
+import com.example.pokemon.data.data.network.model.PokemonNetworkEntity
 import io.reactivex.Single
 
 interface Repository {
@@ -22,9 +21,9 @@ interface Repository {
 
 
     //Network
-    fun getPokemon(id: Int): Single<Pokemon>
+    fun getPokemon(id: Int): Single<PokemonNetworkEntity>
 
-    fun getData(): Single<PokemonApiResponse>
+    fun getData(): Single<PokemonApiResponseNetworkEntity>
 
 
 }

@@ -4,9 +4,9 @@ import com.example.pokemon.data.data.db.PokemonDao
 import com.example.pokemon.data.data.db.model.PokeResultRoomEntity
 import com.example.pokemon.data.data.db.model.PokemonRoomEntity
 import com.example.pokemon.data.data.network.PokemonApi
+import com.example.pokemon.data.data.network.model.PokemonApiResponseNetworkEntity
+import com.example.pokemon.data.data.network.model.PokemonNetworkEntity
 import com.example.pokemon.domain.Repository
-import com.example.pokemon.domain.model.Pokemon
-import com.example.pokemon.domain.model.PokemonApiResponse
 import io.reactivex.Single
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -43,11 +43,11 @@ class RepositoryImpl
     }
 
     //Network
-    override fun getPokemon(id: Int): Single<Pokemon> {
+    override fun getPokemon(id: Int): Single<PokemonNetworkEntity> {
         return api.getPokemonInfo(id)
     }
 
-    override fun getData(): Single<PokemonApiResponse> {
+    override fun getData(): Single<PokemonApiResponseNetworkEntity> {
         return api.getPokemonList(POKEMON_LIMIT_SIZE, POKEMON_OFFSET_SIZE)
     }
 }

@@ -8,13 +8,13 @@ import com.example.pokemon.data.data.db.model.PokemonApiResponseRoomEntity
 import com.example.pokemon.data.data.db.model.PokemonRoomEntity
 import com.example.pokemon.data.data.db.model.SpritesRoomEntity
 import com.example.pokemon.utils.PokemonApiTypeConvertor
-
+private const val DATABASE_VERSION = 4
 @Database(
     entities = [PokemonRoomEntity::class,
         PokemonApiResponseRoomEntity::class,
         PokeResultRoomEntity::class,
         SpritesRoomEntity::class],
-    version = 2,
+    version = DATABASE_VERSION,
 )
 @TypeConverters(PokemonApiTypeConvertor::class)
 abstract class AppDatabase : RoomDatabase() {

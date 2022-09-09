@@ -4,6 +4,4 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.pokemon.databinding.PokemonItemForRecyclerBinding
 
 class PokemonItemViewHolder(var binding: PokemonItemForRecyclerBinding) :
-    RecyclerView.ViewHolder(binding.root) {
-
-}
+    RecyclerView.ViewHolder(binding.root)

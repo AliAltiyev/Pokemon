@@ -3,11 +3,11 @@ package com.example.pokemon.presentation
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.pokemon.data.data.RepositoryImpl
+import com.example.pokemon.data.data.network.model.PokemonApiResponseNetworkEntity
+import com.example.pokemon.domain.Repository
 import com.example.pokemon.domain.model.PokeResult
-import com.example.pokemon.domain.model.PokemonApiResponse
+import com.example.pokemon.utils.fromNetworkModelToRoomModel
 import com.example.pokemon.utils.pokeResultFromDomainModelToRoomModel
-import com.example.pokemon.utils.pokeResultRoomEntityFromDomainModelToRoomModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -19,7 +19,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class PokemonListViewModel @Inject constructor(
-    private val repositoryImpl: RepositoryImpl,
+    private val repository: Repository,
 ) : ViewModel() {
 
     private val compositeDisposable = CompositeDisposable()
@@ -29,29 +29,30 @@ class PokemonListViewModel @Inject constructor(
 
     fun getDataFromApi() {
         compositeDisposable.add(
-            repositoryImpl.getData()
+            repository.getData()
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(object :
-                    DisposableSingleObserver<PokemonApiResponse>() {
-                    override fun onSuccess(result: PokemonApiResponse) {
+                    DisposableSingleObserver<PokemonApiResponseNetworkEntity>() {
+                    override fun onSuccess(result: PokemonApiResponseNetworkEntity) {
                         viewModelScope.launch(Dispatchers.IO) {
-                            repositoryImpl.insertAllPokemon(
-                                result.results.pokeResultRoomEntityFromDomainModelToRoomModel()
+                            repository.insertAllPokemon(
+                                result.results.fromNetworkModelToRoomModel()
                             )
                         }
                     }
 
-                    override fun onError(error: Throwable) {
-                        error.printStackTrace()
+                    override fun onError(result: Throwable) {
+                        result.printStackTrace()
                     }
-                })
+                }
+                )
         )
     }
 
     fun getDataFromRoom() {
         viewModelScope.launch(Dispatchers.IO) {
-            val result = repositoryImpl.getPokemonList()
+            val result = repository.getPokemonList()
             _pokeResult.postValue(result.pokeResultFromDomainModelToRoomModel())
         }
     }
@@ -61,3 +62,5 @@ class PokemonListViewModel @Inject constructor(
         compositeDisposable.dispose()
     }
 }
+
+
